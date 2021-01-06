@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:myeventphoto_mobile_client/src/pages/home_page.dart';
+import 'package:myeventphoto_mobile_client/src/pages/login_page.dart';
 import 'package:myeventphoto_mobile_client/src/routes/routes.dart';
 import 'package:myeventphoto_mobile_client/src/shared_prefs/preferencias_usuarios.dart';
 
 void main() async{
+  //aqui se iniciaa el singleton porque tengo que tener los datos antes de cargar
+  //la vista
+  WidgetsFlutterBinding.ensureInitialized();
   final prefs =new PreferenciasUsuario();
   await prefs.initPrefs();
   
@@ -22,7 +26,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (RouteSettings settings) {
         print('Ruta llamada ${settings.name}');
         return MaterialPageRoute(
-            builder: (BuildContext context) => HomePage());
+            builder: (BuildContext context) => LoginPage());
       },
       debugShowCheckedModeBanner: false);
 }
