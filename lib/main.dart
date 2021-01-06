@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:myeventphoto_mobile_client/src/pages/home_page.dart';
 import 'package:myeventphoto_mobile_client/src/routes/routes.dart';
+import 'package:myeventphoto_mobile_client/src/shared_prefs/preferencias_usuarios.dart';
 
-void main() {
+void main() async{
+  final prefs =new PreferenciasUsuario();
+  await prefs.initPrefs();
+  
   runApp(MyApp());
 }
 
