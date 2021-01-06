@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myeventphoto_mobile_client/src/bloc/provider.dart';
 import 'package:myeventphoto_mobile_client/src/pages/home_page.dart';
 import 'package:myeventphoto_mobile_client/src/pages/login_page.dart';
 import 'package:myeventphoto_mobile_client/src/routes/routes.dart';
@@ -18,7 +19,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return Provider( //InheritedWidget 
+    //que se encarga de hacer que las variables "globales" del bloc sean accesibles a todos los usuarios
+      child: MaterialApp(
       title: 'My EVent Photo App',
       // home: HomePage(),
       initialRoute: 'login',
@@ -28,7 +31,8 @@ class MyApp extends StatelessWidget {
         return MaterialPageRoute(
             builder: (BuildContext context) => LoginPage());
       },
-      debugShowCheckedModeBanner: false);
+      debugShowCheckedModeBanner: false),
+    );
 }
 
 }

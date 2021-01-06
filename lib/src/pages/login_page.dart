@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myeventphoto_mobile_client/src/bloc/provider.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -8,6 +9,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +68,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _loginForm(BuildContext context) {
+   
+     final bloc= Provider.of(context);
     final size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(children: [
@@ -91,7 +95,12 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               Text('Ingreso'),
-              _crearEmail(),
+              SizedBox(height: 10.0,),
+              _crearEmail(bloc),
+              SizedBox(height: 10.0,),
+              _crearPassword(bloc),
+              SizedBox(height: 10.0,),
+              _crearBoton()
             ],
           ),
         ),
@@ -99,7 +108,56 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  _crearEmail() {
-    
+  _crearEmail(LoginBloc bloc) {
+    return Container(
+      padding: EdgeInsets.all(15.0),
+      child: TextField(
+      
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+            icon: Icon(
+          Icons.alternate_email,
+          color: Colors.amber[900],
+        ),
+        hintText: 'ejemplo@mail.com',
+        labelText: 'Correo Electronico '
+        ),
+      ),
+    );
+  }
+  _crearPassword(LoginBloc bloc) {
+    return Container(
+      
+      padding: EdgeInsets.all(15.0),
+      child: TextField(
+        obscureText: true,
+        
+        decoration: InputDecoration(
+            icon: Icon(
+          Icons.lock,
+          color: Colors.amber[900],
+        ),
+        
+        labelText: 'Contraseña '
+        ),
+      ),
+    );
+  }
+  _crearBoton(){
+    return RaisedButton(
+      
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: 80.0,
+          vertical: 15.0),
+        child: Text('Iniciar Sesion'),
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0),
+        
+        ),
+        color: Colors.amber[800],
+        textColor: Colors.white ,
+      onPressed: (){});
   }
 }
