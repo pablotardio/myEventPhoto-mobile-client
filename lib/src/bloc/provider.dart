@@ -9,10 +9,7 @@ class Provider extends InheritedWidget{
   Provider({Key key,Widget child}): super(key: key,child:child);
 
   @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
-    // TODO: implement updateShouldNotify
-    throw UnimplementedError();
-  }
+  bool updateShouldNotify(covariant InheritedWidget oldWidget)=>true;
   static LoginBloc of ( BuildContext context ){
    return context.dependOnInheritedWidgetOfExactType<Provider>().loginBloc;
 }
