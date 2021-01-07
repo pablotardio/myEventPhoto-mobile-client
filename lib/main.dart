@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
       // home: HomePage(),
       initialRoute: 'login',
       routes: getApplicationRoutes(),
+      theme: ThemeData(primaryColor: Colors.deepOrange[600]),
       onGenerateRoute: (RouteSettings settings) {
         print('Ruta llamada ${settings.name}');
         return MaterialPageRoute(
