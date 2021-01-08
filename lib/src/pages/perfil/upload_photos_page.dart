@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:myeventphoto_mobile_client/src/providers/foto_provider.dart';
 
 class UpdloadPhotosPage extends StatefulWidget {
   UpdloadPhotosPage({Key key}) : super(key: key);
@@ -13,7 +14,7 @@ class UpdloadPhotosPage extends StatefulWidget {
 class _UpdloadPhotosPageState extends State<UpdloadPhotosPage> {
   File foto;
   final imagePicker = new ImagePicker();
-
+  final fotoProvider= new FotoProvider();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,13 +34,12 @@ class _UpdloadPhotosPageState extends State<UpdloadPhotosPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _botonDeSubirFotos(),
-                  SizedBox(
-                    width: 20.0,
-                  ),
+                  SizedBox( width: 20.0, ),
                   _botonDeTomarFotos()
                 ],
               ),
-              
+               SizedBox( height: 20.0, ),
+              _botonGuardar(),
             ]))));
   }
 
@@ -60,20 +60,19 @@ class _UpdloadPhotosPageState extends State<UpdloadPhotosPage> {
 
   _subirFoto() async {
     _procesarImagen(ImageSource.gallery);
-    
-    
   }
- _procesarImagen(ImageSource origen)async{
-   // reemplazo al _subirFoto y _tomarFtos
+
+  _procesarImagen(ImageSource origen) async {
+    // reemplazo al _subirFoto y _tomarFtos
 //Se guarda la imagen en un picked File
-    PickedFile pickedFoto =
-        await imagePicker.getImage(source: origen);
+    PickedFile pickedFoto = await imagePicker.getImage(source: origen);
     foto = File(pickedFoto.path);
     if (foto != null) {
       //limpieza
     }
     setState(() {});
- }
+  }
+
   _tomarFoto() async {
     _procesarImagen(ImageSource.camera);
   }
@@ -86,5 +85,20 @@ class _UpdloadPhotosPageState extends State<UpdloadPhotosPage> {
     );
   }
 
-  _botonGuardar() {}
+  _botonGuardar() {
+    return (RaisedButton.icon(
+      icon: Icon(Icons.save),
+      label: Text('Guardar'),
+      textColor: Colors.white,
+      color: Colors.orange[900],
+      elevation: 5,
+      
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      onPressed: () {
+        fotoProvider.subirImagen(foto);
+      },
+
+      
+    ));
+  }
 }
