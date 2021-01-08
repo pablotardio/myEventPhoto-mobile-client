@@ -199,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
             final hola =await menuProvider.cargarData();
             
             if(prefs.token!=''){
-                Navigator.pushNamed(context, '/home');
+                Navigator.pushNamed(context, 'home');
             }
         });
   }
