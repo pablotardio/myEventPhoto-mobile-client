@@ -38,7 +38,8 @@ class _UpdloadPhotosPageState extends State<UpdloadPhotosPage> {
                   ),
                   _botonDeTomarFotos()
                 ],
-              )
+              ),
+              
             ]))));
   }
 
@@ -58,25 +59,23 @@ class _UpdloadPhotosPageState extends State<UpdloadPhotosPage> {
   }
 
   _subirFoto() async {
-    //Se guarda la imagen en un picked File
-    PickedFile pickedFoto =
-        await imagePicker.getImage(source: ImageSource.gallery);
-    foto = File(pickedFoto.path);
-    if (foto != null) {
-      //limpieza
-    }
-    setState(() {});
+    _procesarImagen(ImageSource.gallery);
+    
+    
   }
-
-  _tomarFoto() async {
-    //Se guarda la imagen en un picked File
+ _procesarImagen(ImageSource origen)async{
+   // reemplazo al _subirFoto y _tomarFtos
+//Se guarda la imagen en un picked File
     PickedFile pickedFoto =
-        await imagePicker.getImage(source: ImageSource.camera);
+        await imagePicker.getImage(source: origen);
     foto = File(pickedFoto.path);
     if (foto != null) {
       //limpieza
     }
     setState(() {});
+ }
+  _tomarFoto() async {
+    _procesarImagen(ImageSource.camera);
   }
 
   _mostrarFoto() {
@@ -86,4 +85,6 @@ class _UpdloadPhotosPageState extends State<UpdloadPhotosPage> {
       fit: BoxFit.cover,
     );
   }
+
+  _botonGuardar() {}
 }
