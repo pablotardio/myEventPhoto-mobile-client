@@ -28,7 +28,9 @@ dependencies:
   image_picker:
   mime_type:
   http_parser:
-
+  flutter_swiper: 
+  qrscan: ^0.2.21 
+  permission_handler:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0

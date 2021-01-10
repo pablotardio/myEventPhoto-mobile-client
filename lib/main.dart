@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myeventphoto_mobile_client/src/bloc/provider.dart';
-import 'package:myeventphoto_mobile_client/src/pages/home_page.dart';
-import 'package:myeventphoto_mobile_client/src/pages/login_page.dart';
+
 import 'package:myeventphoto_mobile_client/src/routes/routes.dart';
 import 'package:myeventphoto_mobile_client/src/shared_prefs/preferencias_usuarios.dart';
+import 'package:myeventphoto_mobile_client/src/views/pages/login_page.dart';
 
 void main() async{
   //aqui se iniciaa el singleton porque tengo que tener los datos antes de cargar
