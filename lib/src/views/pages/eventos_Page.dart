@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myeventphoto_mobile_client/src/models/evento_model.dart';
 import 'package:myeventphoto_mobile_client/src/providers/evento_provider.dart';
 
 class EventosPage extends StatefulWidget {
@@ -15,7 +16,7 @@ class _EventosPageState extends State<EventosPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Event Photo'),
+        title: Text('Eventos'),
         backgroundColor: Colors.amber[900],
       ),
       body: _menuLista(),
@@ -37,13 +38,13 @@ class _EventosPageState extends State<EventosPage> {
 
   List<Widget> _listMenuItems(BuildContext context, List<dynamic> data) {
     final List<Widget> myItems = [];
-    myItems.add(_fotoDePerfil());  
-    myItems.add(Center(child: Text('Username'),));
+    myItems.add(_iconoCentral());  //Icono
+    myItems.add(Center(child: Text('Lista de eventos asistidos'),));
         data.forEach((element) {
           myItems.add(ListTile(
-            title: Text(element['nombre']),
-            subtitle: Text('Esto es un item del menu'),
-            trailing: Icon(Icons.arrow_forward_ios),
+            title: Text(element.nombre),
+            subtitle: Text(element.direccion),
+            trailing: Icon(Icons.house),
             onTap: () {
              
             },
@@ -52,7 +53,7 @@ class _EventosPageState extends State<EventosPage> {
         return myItems;
       }
     
-      Widget _fotoDePerfil() {
-        return Icon(Icons.person,size: 140.0,color: Colors.deepOrange[600],);
+      Widget _iconoCentral() {
+        return Icon(Icons.celebration,size: 140.0,color: Colors.deepOrange[600],);
       }
 }

@@ -30,13 +30,14 @@ class EventoProvider {
     await procesarPeticion(apiUrl, body);
   }
 
-  Future<Eventos> getMyEventos()async {
+  Future<List<Evento>> getMyEventos()async {
     try {
       final apiUrl = '/api/invitado/eventos/ver';
       final url = new Uri.http(_host, apiUrl);
       final response = await http.get(url, headers: _headers);
       Map<String, dynamic> decodedResp = json.decode(response.body);
-      return Eventos.fromJsonList(decodedResp['eventos']);
+      final eventos= Eventos.fromJsonList(decodedResp['eventos']);
+      return eventos.items;
     } catch (e) {
       print(e);
     }

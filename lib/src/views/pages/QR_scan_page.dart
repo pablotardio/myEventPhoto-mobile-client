@@ -91,6 +91,9 @@ class _QRScanPageState extends State<QRScanPage> {
   }
 
   _eventoEscaneado() {
+    final fontStyleTitulo= TextStyle(fontFamily: 'Times', fontSize: 20.0);
+    final fontStyleContenido=TextStyle(fontFamily: 'Courier', fontSize: 20.0);
+    
     return StreamBuilder<Evento>(
         stream: _eventoEscaneadoStreamController.stream,
         builder: (context, AsyncSnapshot<Evento> snapshot) {
@@ -102,19 +105,19 @@ class _QRScanPageState extends State<QRScanPage> {
                 children: [
                   Text(
                     'Titulo del Evento',
-                    style: TextStyle(fontFamily: 'Times', fontSize: 20.0),
+                    style: fontStyleTitulo,
                   ),
                   Text(
                     snapshot.data.nombre,
-                    style: TextStyle(fontFamily: 'Courier', fontSize: 20.0),
+                    style: fontStyleContenido,
                   ),
                   Text(
                     'Direccion del Evento',
-                    style: TextStyle(fontFamily: 'Times', fontSize: 20.0),
+                    style: fontStyleTitulo,
                   ),
                   Text(
                     snapshot.data.direccion,
-                    style: TextStyle(fontFamily: 'Courier', fontSize: 20.0),
+                    style: fontStyleContenido,
                   ),
                 ],
               ),

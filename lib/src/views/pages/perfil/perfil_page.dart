@@ -18,13 +18,32 @@ class _PerfilPageState extends State<PerfilPage> {
 
   @override
   Widget build(BuildContext context) {
+    final fontStyleTitulo = TextStyle(
+        fontFamily: 'Arial', fontSize: 20.0, fontWeight: FontWeight.bold);
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Event Photo'),
+        title: Text('Mi perfil'),
         backgroundColor: Colors.amber[900],
       ),
-      body: Column(
-        children: [Text('UserName'), _swiperTarjetas(), _botonSubirFoto()],
+      body: Container(
+        padding: EdgeInsets.only(top: 35.0),
+        child: Column(
+          children: [
+            Text(
+              'Nombre de usuario:',
+              style: fontStyleTitulo,
+            ),
+            Text(
+              'UserName',
+            ),
+            Text(
+              'Fotos de perfil:',
+              style: fontStyleTitulo,
+            ),
+            _swiperTarjetas()
+            // , _botonSubirFoto()
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.camera_alt),
