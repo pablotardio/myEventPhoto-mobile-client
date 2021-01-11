@@ -30,7 +30,7 @@ class FotoProvider {
     }
   }
 
-  Future<String> subirImagen(File imagen) async {
+  Future< Map<String, dynamic>> subirImagen(File imagen) async {
     final url = new Uri.http(_host, '/api/user/subir/foto');
     final mimeType = mime(imagen.path).split('/'); //image/jpeg
     Map<String, String> headers = {"authorization": 'bearer ' + prefs.token};
@@ -48,7 +48,7 @@ class FotoProvider {
     if (resp.statusCode != 200 && resp.statusCode != 201) {
       print('algo salio mal');
       print(resp.body);
-      return null;
+      return {'estado':'bad'};
     }
     
     final respData = json.decode(resp.body);

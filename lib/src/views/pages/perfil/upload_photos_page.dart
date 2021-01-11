@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myeventphoto_mobile_client/src/providers/foto_provider.dart';
 
-
 class UpdloadPhotosPage extends StatefulWidget {
   UpdloadPhotosPage({Key key}) : super(key: key);
 
@@ -44,7 +43,7 @@ class _UpdloadPhotosPageState extends State<UpdloadPhotosPage> {
               SizedBox(
                 height: 20.0,
               ),
-              _botonGuardar(),
+              _botonGuardar(context),
             ]))));
   }
 
@@ -67,7 +66,6 @@ class _UpdloadPhotosPageState extends State<UpdloadPhotosPage> {
     _procesarImagen(ImageSource.gallery);
   }
 
-  
   _procesarImagen(ImageSource origen) async {
     // reemplazo al _subirFoto y _tomarFtos
 //Se guarda la imagen en un picked File
@@ -91,7 +89,7 @@ class _UpdloadPhotosPageState extends State<UpdloadPhotosPage> {
     );
   }
 
-  _botonGuardar() {
+  _botonGuardar(context) {
     return (RaisedButton.icon(
       icon: Icon(Icons.save),
       label: Text('Guardar'),
@@ -99,9 +97,47 @@ class _UpdloadPhotosPageState extends State<UpdloadPhotosPage> {
       color: Colors.orange[900],
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      onPressed: () {
-        fotoProvider.subirImagen(foto);
+      onPressed: () async {
+        
+          await subirImagenConAPI(context);
+        
       },
     ));
+  }
+
+  Future subirImagenConAPI(context) async {
+     final respData = await fotoProvider.subirImagen(foto);
+    if (respData['estado'] == 'ok') {
+      _mostrarAlert(context);
+    }
+  }
+
+  void _mostrarAlert(BuildContext context) {
+    showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            title: Text('Guardado exitoso'),
+            content: Column(
+              mainAxisSize: MainAxisSize
+                  .min, //Para que las columnas se hagan resize dependiendo de los hijos que conteienen
+
+              children: <Widget>[
+                Text('Se ha subido su foto de perfil exitosamente'),
+
+                //FlutterLogo(size: 100.0)
+              ],
+            ),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('Cancelar')),
+              FlatButton(onPressed: () {}, child: Text('Ok'))
+            ],
+          );
+        });
   }
 }

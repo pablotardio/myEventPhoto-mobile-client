@@ -15,7 +15,7 @@ class _MisFotosPageState extends State<MisFotosPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Event Photo'),
+        title: Text('Mis Fotos en eventos'),
         backgroundColor: Colors.amber[900],
       ),
       body: _menuLista(),
@@ -37,7 +37,9 @@ class _MisFotosPageState extends State<MisFotosPage> {
 
   List<Widget> _listMenuItems(BuildContext context, List<dynamic> data) {
     final List<Widget> myItems = [];
-    myItems.add(_fotoDePerfil());  
+    //myItems.add(_fotoDePerfil());  
+    myItems.add(SizedBox(height: 10.0,));  
+    
         data.forEach((element) {
           myItems.add(FadeInImage(
                 placeholder: AssetImage('assets/loading-bits.gif'),
