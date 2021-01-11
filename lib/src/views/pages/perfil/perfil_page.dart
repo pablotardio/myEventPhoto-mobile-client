@@ -63,7 +63,7 @@ class _PerfilPageState extends State<PerfilPage> {
 
   _swiperTarjetas() {
     return FutureBuilder(
-      future: fotoProvider.getFotos(),
+      future: fotoProvider.getFotosPerfil(),
       builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
         //Sin la condicion del length cuando el arreglo retornaba [] daba error
         if (snapshot.hasData && (snapshot.data).length > 0) {

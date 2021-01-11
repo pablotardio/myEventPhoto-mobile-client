@@ -9,30 +9,29 @@ import 'package:myeventphoto_mobile_client/src/shared_prefs/preferencias_usuario
 class FotoProvider {
   List<dynamic> responseFotos = [];
   final prefs = new PreferenciasUsuario();
-  //final _url='192.168.1.4:3002';
+  final _host='192.168.1.4:3002';
 
-  Future<List<dynamic>> getFotos() async {
+  Future<List<dynamic>> getFotosPerfil() async {
     try {
-      final url = new Uri.http('192.168.1.4:3002', '/api/user/ver/fotoperfil');
-    final headers = {
-      "Content-Type": "application/json",
-      "authorization": 'bearer ' + prefs.token
-    };
-    final response = await http.get(url, headers: headers);
-    Map<String, dynamic> decodedResp = json.decode(response.body);
-    //print(decodedResp);
-    
-    responseFotos = decodedResp['fotos'];
-    print(responseFotos);
+      final url = new Uri.http(_host, '/api/user/ver/fotoperfil');
+      final headers = {
+        "Content-Type": "application/json",
+        "authorization": 'bearer ' + prefs.token
+      };
+      final response = await http.get(url, headers: headers);
+      Map<String, dynamic> decodedResp = json.decode(response.body);
+      //print(decodedResp);
+
+      responseFotos = decodedResp['fotos'];
+      print(responseFotos);
       return responseFotos;
     } catch (e) {
       print(e);
     }
-  
   }
 
   Future<String> subirImagen(File imagen) async {
-    final url = new Uri.http('192.168.1.4:3002', '/api/user/subir/foto');
+    final url = new Uri.http(_host, '/api/user/subir/foto');
     final mimeType = mime(imagen.path).split('/'); //image/jpeg
     Map<String, String> headers = {"authorization": 'bearer ' + prefs.token};
     final imageUploadRequest = http.MultipartRequest(
@@ -51,8 +50,26 @@ class FotoProvider {
       print(resp.body);
       return null;
     }
-
+    
     final respData = json.decode(resp.body);
     return respData;
+  }
+   Future<List<dynamic>> getFotosAllEventos() async {
+    try {
+      final url = new Uri.http(_host, '/api/user/ver/fotoevento');
+      final headers = {
+        "Content-Type": "application/json",
+        "authorization": 'bearer ' + prefs.token
+      };
+      final response = await http.get(url, headers: headers);
+      Map<String, dynamic> decodedResp = json.decode(response.body);
+      //print(decodedResp);
+
+      responseFotos = decodedResp['fotos'];
+      print(responseFotos);
+      return responseFotos;
+    } catch (e) {
+      print(e);
+    }
   }
 }
