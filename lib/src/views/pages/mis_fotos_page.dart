@@ -29,27 +29,70 @@ class _MisFotosPageState extends State<MisFotosPage> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return ListView(
           //snapshot.data es lo que me devuelve mi promise/future
-              children: _listMenuItems(context, snapshot.data),
-            );
+          children: _listMenuItems(context, snapshot.data),
+        );
       },
     );
   }
 
   List<Widget> _listMenuItems(BuildContext context, List<dynamic> data) {
     final List<Widget> myItems = [];
-    //myItems.add(_fotoDePerfil());  
-    myItems.add(SizedBox(height: 10.0,));  
-    
-        data.forEach((element) {
-          myItems.add(FadeInImage(
-                placeholder: AssetImage('assets/loading-bits.gif'),
-                image: NetworkImage(
-                    element['url'])));
-        });
-        return myItems;
-      }
-    
-      Widget _fotoDePerfil() {
-        return Icon(Icons.photo_album,size: 140.0,color: Colors.deepOrange[600],);
-      }
+    //myItems.add(_fotoDePerfil());
+    myItems.add(SizedBox(
+      height: 10.0,
+    ));
+
+    data.forEach((element) {
+      myItems.add(Container(
+        
+        child: Stack(
+         
+          children: [
+            SizedBox(
+              width: double.infinity,
+            ),
+            
+             Center(
+                
+                child: FadeInImage(
+                  height: 250.0,
+                  placeholder: AssetImage('assets/loading-bits.gif'),
+                  image: NetworkImage(
+                    fotoProvider.getUrlConMarcaDeAgua(element['url']),
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            
+            Center(
+              child: _botonCarrito(),
+            )
+          ],
+        ),
+      ));
+    });
+    return myItems;
+  }
+
+  Widget _fotoDePerfil() {
+    return Icon(
+      Icons.photo_album,
+      size: 140.0,
+      color: Colors.deepOrange[600],
+    );
+  }
+
+  _botonCarrito() {
+    return (RaisedButton.icon(
+      icon: Icon(Icons.shopping_bag),
+      label: Text('Añadir al carrito'),
+      textColor: Colors.white,
+      color: Colors.orange[900],
+      elevation: 5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      onPressed: () {
+        print('ADDED');
+      },
+    ));
+  }
 }

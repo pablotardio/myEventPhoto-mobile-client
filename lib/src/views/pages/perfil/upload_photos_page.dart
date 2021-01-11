@@ -13,6 +13,7 @@ class UpdloadPhotosPage extends StatefulWidget {
 
 class _UpdloadPhotosPageState extends State<UpdloadPhotosPage> {
   File foto;
+  bool _estaSubiendo = false;
   final imagePicker = new ImagePicker();
   final fotoProvider = new FotoProvider();
   @override
@@ -91,25 +92,29 @@ class _UpdloadPhotosPageState extends State<UpdloadPhotosPage> {
 
   _botonGuardar(context) {
     return (RaisedButton.icon(
-      icon: Icon(Icons.save),
-      label: Text('Guardar'),
-      textColor: Colors.white,
-      color: Colors.orange[900],
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      onPressed: () async {
-        
-          await subirImagenConAPI(context);
-        
-      },
-    ));
+        icon: Icon(Icons.save),
+        label: Text('Guardar'),
+        textColor: Colors.white,
+        color: Colors.orange[900],
+        elevation: 5,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        onPressed: _estaSubiendo
+            ? null
+            : () async => await subirImagenConAPI(context)));
   }
 
   Future subirImagenConAPI(context) async {
-     final respData = await fotoProvider.subirImagen(foto);
+    setState(() {
+      _estaSubiendo = true;
+    });
+    final respData = await fotoProvider.subirImagen(foto);
     if (respData['estado'] == 'ok') {
       _mostrarAlert(context);
     }
+    setState(() {
+      _estaSubiendo = false;
+    });
   }
 
   void _mostrarAlert(BuildContext context) {
@@ -126,7 +131,7 @@ class _UpdloadPhotosPageState extends State<UpdloadPhotosPage> {
                   .min, //Para que las columnas se hagan resize dependiendo de los hijos que conteienen
 
               children: <Widget>[
-                Text('Se ha subido su foto de perfil exitosamente'),
+                Text('Se ha subido su foto de perfil exitosamente, vuelva atras para verlas'),
 
                 //FlutterLogo(size: 100.0)
               ],
@@ -135,7 +140,7 @@ class _UpdloadPhotosPageState extends State<UpdloadPhotosPage> {
               FlatButton(
                   onPressed: () => Navigator.of(context).pop(),
                   child: Text('Cancelar')),
-              FlatButton(onPressed: () {}, child: Text('Ok'))
+              FlatButton(onPressed: () =>Navigator.of(context).pop(), child: Text('Ok'))
             ],
           );
         });
