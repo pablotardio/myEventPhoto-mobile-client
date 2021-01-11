@@ -93,4 +93,23 @@ class FotoProvider {
       print(e);
     }
   }
+
+  Future<List<dynamic>> getFotosEventosComprados() async {
+    try {
+      final url = new Uri.http(_host, '/api/invitado/ver/fotoevento/pagadas');
+      final headers = {
+        "Content-Type": "application/json",
+        "authorization": 'bearer ' + prefs.token
+      };
+      final response = await http.get(url, headers: headers);
+      Map<String, dynamic> decodedResp = json.decode(response.body);
+      //print(decodedResp);
+
+      responseFotos = decodedResp['fotos'];
+      print(responseFotos);
+      return responseFotos;
+    } catch (e) {
+      print(e);
+    }
+  }
 }
