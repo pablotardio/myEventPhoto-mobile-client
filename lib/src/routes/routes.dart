@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:myeventphoto_mobile_client/src/views/pages/QR_scan_page.dart';
-import 'package:myeventphoto_mobile_client/src/views/pages/compras_page.dart';
+import 'package:myeventphoto_mobile_client/src/views/pages/compras/compras_page.dart';
 import 'package:myeventphoto_mobile_client/src/views/pages/eventos_Page.dart';
 import 'package:myeventphoto_mobile_client/src/views/pages/home_page.dart';
 import 'package:myeventphoto_mobile_client/src/views/pages/login_page.dart';
