@@ -7,6 +7,9 @@ import 'package:http/http.dart' as http;
 import 'package:myeventphoto_mobile_client/src/shared_prefs/preferencias_usuarios.dart';
 
 class FotoProvider {
+  List<dynamic> responseFotos = [];
+  final prefs = new PreferenciasUsuario();
+  final _host = '192.168.1.4:3002';
   /**
    * usa cloudinary para poner marca de agua
    */
@@ -14,8 +17,8 @@ class FotoProvider {
     String watermark =
         'b_rgb:000000,c_limit,e_blur:1,h_200,o_90,w_200/ar_1:1,b_rgb:000000,c_lfill,co_rgb:ffffff,l_text:arial_80:®,o_60,r_max';
     List urlList = url.split('/');
-   // print(urlList);
-   // urlList.forEach((i) => print(i));
+    // print(urlList);
+    // urlList.forEach((i) => print(i));
     String finalString = 'https:/';
 
     for (int i = 2; i < urlList.length; i++) {
@@ -26,10 +29,6 @@ class FotoProvider {
     }
     return finalString;
   }
-
-  List<dynamic> responseFotos = [];
-  final prefs = new PreferenciasUsuario();
-  final _host = '192.168.1.4:3002';
 
   Future<List<dynamic>> getFotosPerfil() async {
     try {
@@ -97,6 +96,25 @@ class FotoProvider {
   Future<List<dynamic>> getFotosEventosComprados() async {
     try {
       final url = new Uri.http(_host, '/api/invitado/ver/fotoevento/pagadas');
+      final headers = {
+        "Content-Type": "application/json",
+        "authorization": 'bearer ' + prefs.token
+      };
+      final response = await http.get(url, headers: headers);
+      Map<String, dynamic> decodedResp = json.decode(response.body);
+      //print(decodedResp);
+
+      responseFotos = decodedResp['fotos'];
+      print(responseFotos);
+      return responseFotos;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<List<dynamic>> getCarrito() async {
+    try {
+      final url = new Uri.http(_host, '/api/invitado/ver/fotoevento/carrito');
       final headers = {
         "Content-Type": "application/json",
         "authorization": 'bearer ' + prefs.token

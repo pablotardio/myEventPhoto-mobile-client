@@ -16,7 +16,14 @@ class _ComprasPageState extends State<ComprasPage> {
         ),
         body: Container(
             padding: EdgeInsets.all(30.0),
-            child: Center(child: ListView(children: [_menuItemCarrito(),SizedBox(height: 25.0,),_menuItemComprados()]))));
+            child: Center(
+                child: ListView(children: [
+              _menuItemCarrito(),
+              SizedBox(
+                height: 25.0,
+              ),
+              _menuItemComprados()
+            ]))));
   }
 
   _menuItemCarrito() {
@@ -25,7 +32,10 @@ class _ComprasPageState extends State<ComprasPage> {
       title: Text('Mi carrito'),
       subtitle: Text('Aqui puede ver todas sus fotos y pagarlas'),
       trailing: Icon(Icons.arrow_forward_ios),
-      onTap: () {},
+      onTap: () {
+         Navigator.pushNamed(context, '/invitado/carrito/fotos');
+        //redirecciono
+      },
     );
   }
 
@@ -37,7 +47,9 @@ class _ComprasPageState extends State<ComprasPage> {
       title: Text('Fotos Compradas'),
       subtitle: Text('Ver y descargar todas sus fotos compradas'),
       trailing: Icon(Icons.arrow_forward_ios),
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, '/invitado/compras/fotos');
+      },
     );
   }
 
