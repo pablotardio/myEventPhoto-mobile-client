@@ -140,7 +140,7 @@ class _CarritoDeComprasPageState extends State<CarritoDeComprasPage> {
       'Total: $total',
       style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
     )));
-    myItems.add(_botonPagar());
+    myItems.add(_botonPagar(total));
     return myItems;
   }
 
@@ -151,7 +151,7 @@ class _CarritoDeComprasPageState extends State<CarritoDeComprasPage> {
       style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
     )));
   }
-  _botonPagar() {
+  _botonPagar(total) {
     return (RaisedButton.icon(
       icon: Icon(Icons.credit_card),
       label: Text('Pagar'),
@@ -159,7 +159,7 @@ class _CarritoDeComprasPageState extends State<CarritoDeComprasPage> {
       color: Colors.orange[600],
       elevation: 4,
       //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      onPressed: () {
+      onPressed: total==0?null:() {
          Navigator.pushNamed(context, '/invitado/pago/fotos');
       },
     ));

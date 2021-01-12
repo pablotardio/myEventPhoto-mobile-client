@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myeventphoto_mobile_client/src/providers/foto_provider.dart';
 import 'package:myeventphoto_mobile_client/src/providers/menu_provider.dart';
+import 'package:myeventphoto_mobile_client/src/providers/pago_provider.dart';
 
 class MisFotosPage extends StatefulWidget {
   MisFotosPage({Key key}) : super(key: key);
@@ -10,7 +11,17 @@ class MisFotosPage extends StatefulWidget {
 }
 
 class _MisFotosPageState extends State<MisFotosPage> {
+  final snackBar = SnackBar(
+    content: Text('Añadido al carrito!'),
+    action: SnackBarAction(
+      label: 'Ok',
+      onPressed: () {
+        // Some code to undo the change.
+      },
+    ),
+  );
   final fotoProvider = new FotoProvider();
+   final pagoProvider = PagoProvider();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,11 +29,11 @@ class _MisFotosPageState extends State<MisFotosPage> {
         title: Text('Mis Fotos en eventos'),
         backgroundColor: Colors.amber[900],
       ),
-      body: _menuLista(),
+      body: _menuLista(context),
     );
   }
 
-  Widget _menuLista() {
+  Widget _menuLista(context) {
     return FutureBuilder(
       future: fotoProvider.getFotosAllEventos(),
       initialData: [],
@@ -46,30 +57,24 @@ class _MisFotosPageState extends State<MisFotosPage> {
       myItems.add(Padding(
         padding: const EdgeInsets.all(20.0),
         child: ClipRRect(
-          
           borderRadius: BorderRadius.circular(40.0),
           child: Stack(
-           
             children: [
               SizedBox(
                 width: double.infinity,
               ),
-              
-               Center(
-                  
-                  child: FadeInImage(
-
-                    height: 250.0,
-                    placeholder: AssetImage('assets/loading-bits.gif'),
-                    image: NetworkImage(
-                      fotoProvider.getUrlConMarcaDeAgua(element['url']),
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              
               Center(
-                child: _botonCarrito(),
+                child: FadeInImage(
+                  height: 250.0,
+                  placeholder: AssetImage('assets/loading-bits.gif'),
+                  image: NetworkImage(
+                    fotoProvider.getUrlConMarcaDeAgua(element['url']),
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Center(
+                child: _botonCarrito(context,element['id']),
               )
             ],
           ),
@@ -87,7 +92,7 @@ class _MisFotosPageState extends State<MisFotosPage> {
     );
   }
 
-  _botonCarrito() {
+  _botonCarrito(context,fotoEventoId) {
     return (RaisedButton.icon(
       icon: Icon(Icons.shopping_bag),
       label: Text('Añadir al carrito'),
@@ -95,8 +100,11 @@ class _MisFotosPageState extends State<MisFotosPage> {
       color: Colors.white,
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      onPressed: () {
-        print('ADDED');
+      onPressed: ()async {
+        // Find the Scaffold in the widget tree and use
+          // it to show a SnackBar.
+          await pagoProvider.addToCarrito(fotoEventoId:fotoEventoId);
+          Scaffold.of(context).showSnackBar(snackBar);
       },
     ));
   }

@@ -22,7 +22,15 @@ class PagoProvider {
     final apiUrl = '/api/invitado/carrito/pagar';
     return (await _procesarPeticion(apiUrl, body))['id'];
   }
-
+Future<Map<String, dynamic>> addToCarrito({fotoEventoId}) async {
+    Map<String, dynamic> body = {
+      'fotoEventoId': fotoEventoId,
+      'esCarrito':true
+      
+    };
+    final apiUrl = '/api/invitado/carrito/add';
+    return await _procesarPeticion(apiUrl, body);
+  }
   Future<Map<String, dynamic>> procesoLuegoPago({transactionId}) async {
     Map<String, String> body = {
       'transactionId': transactionId,
