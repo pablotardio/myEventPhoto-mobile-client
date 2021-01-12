@@ -43,31 +43,36 @@ class _MisFotosPageState extends State<MisFotosPage> {
     ));
 
     data.forEach((element) {
-      myItems.add(Container(
-        
-        child: Stack(
-         
-          children: [
-            SizedBox(
-              width: double.infinity,
-            ),
-            
-             Center(
-                
-                child: FadeInImage(
-                  height: 250.0,
-                  placeholder: AssetImage('assets/loading-bits.gif'),
-                  image: NetworkImage(
-                    fotoProvider.getUrlConMarcaDeAgua(element['url']),
-                  ),
-                  fit: BoxFit.cover,
-                ),
+      myItems.add(Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: ClipRRect(
+          
+          borderRadius: BorderRadius.circular(40.0),
+          child: Stack(
+           
+            children: [
+              SizedBox(
+                width: double.infinity,
               ),
-            
-            Center(
-              child: _botonCarrito(),
-            )
-          ],
+              
+               Center(
+                  
+                  child: FadeInImage(
+
+                    height: 250.0,
+                    placeholder: AssetImage('assets/loading-bits.gif'),
+                    image: NetworkImage(
+                      fotoProvider.getUrlConMarcaDeAgua(element['url']),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              
+              Center(
+                child: _botonCarrito(),
+              )
+            ],
+          ),
         ),
       ));
     });
@@ -86,8 +91,8 @@ class _MisFotosPageState extends State<MisFotosPage> {
     return (RaisedButton.icon(
       icon: Icon(Icons.shopping_bag),
       label: Text('Añadir al carrito'),
-      textColor: Colors.white,
-      color: Colors.orange[900],
+      textColor: Colors.orange[900],
+      color: Colors.white,
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       onPressed: () {
