@@ -1,6 +1,6 @@
 import 'dart:async';
 
-class LoginBloc {
+class RegisterBloc {
   final _emailController = StreamController<String>.broadcast();
   final _passwordController = StreamController<String>.broadcast();
   final _celularController = StreamController<String>.broadcast();
@@ -22,5 +22,6 @@ dispose(){
   _celularController?.close();
   _nombreController?.close();
 }
+
 }
 

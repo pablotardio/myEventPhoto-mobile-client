@@ -38,10 +38,24 @@ class _MisFotosPageState extends State<MisFotosPage> {
       future: fotoProvider.getFotosAllEventos(),
       initialData: [],
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return ListView(
+        if(snapshot.hasData){
+          return ListView(
           //snapshot.data es lo que me devuelve mi promise/future
           children: _listMenuItems(context, snapshot.data),
         );
+        }
+        else{
+          return Center(
+            child: Column(
+              
+              children: [
+                  SizedBox(height: 20.0,),
+                Container(child: Text('No aparece en ninguna foto, escanee eventos para buscar')),
+               
+              ],
+            ),
+          );
+        }
       },
     );
   }

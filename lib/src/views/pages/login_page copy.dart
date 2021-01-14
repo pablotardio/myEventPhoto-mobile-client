@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 10.0,
               ),
               _crearBoton(bloc),
-              _registrarBoton()
+               _registrarBoton()
             ],
           ),
         ),
@@ -204,18 +204,18 @@ class _LoginPageState extends State<LoginPage> {
             }
         });
   }
-     _registrarBoton() {
+
+   _registrarBoton() {
     
     return RaisedButton(
         child: Container(
-         // padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+          padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
           child: Text('No tiene cuenta? Registrarse'),
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
         ),
-        elevation: 0,
-        color: Colors.black26,
+        color: Colors.black45,
         textColor: Colors.white,
         onPressed: () async{
                 Navigator.pushNamed(context, 'register');
