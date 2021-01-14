@@ -3,29 +3,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class UsuarioProvider {
-  final _url = 'localhost:3002';
+ // final _url = 'localhost:3002';
+  final _host = '192.168.1.4:3002';
 
-  Future<Map<String, dynamic>> nuevoUsuario(
-      String email, String password) async {
-    final authdata = {
-      'email': email,
-      'password': password,
-      'rolId': 3,
-      'returnSecureToken': true
-    };
-    final response = await http.post(_url, body: json.encode(authdata));
-    Map<String, dynamic> decodedResp = json.decode(response.body);
-    print(decodedResp);
-    if (decodedResp.containsKey('token')) {
-      return {
-        'ok': true,
-        'token': decodedResp['token'],
-        'vistas': decodedResp['vistas']
-      };
-    } else {
-      return {'ok': false};
-    }
-  }
 
   Future<Map<String, dynamic>> login(String email, String password) async {
     try {
@@ -38,7 +18,7 @@ class UsuarioProvider {
       final headers = {"Content-Type": "application/json"};
 
       final response = await http.post(
-        new Uri.http('192.168.1.4:3002', '/api/login'),
+        new Uri.http(_host, '/api/login'),
         headers: headers,
         body: json.encode(authdata),
       );
@@ -71,7 +51,7 @@ class UsuarioProvider {
       final headers = {"Content-Type": "application/json"};
 
       final response = await http.post(
-        new Uri.http('192.168.1.4:3002', '/api/register'),
+        new Uri.http(_host, '/api/register'),
         headers: headers,
         body: json.encode(authdata),
       );
