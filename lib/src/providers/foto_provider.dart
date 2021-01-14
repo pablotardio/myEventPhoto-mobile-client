@@ -17,7 +17,12 @@ class FotoProvider {
   String getUrlConMarcaDeAgua(String url) {
     String watermark =
         'b_rgb:000000,c_limit,e_blur:1,h_200,o_90,w_200/ar_1:1,b_rgb:000000,c_lfill,co_rgb:ffffff,l_text:arial_80:®,o_60,r_max';
-    List urlList = url.split('/');
+  
+    return procesarEfecto(watermark, url);
+  }
+  String procesarEfecto(String cloudinaryUrlEffect,String imageUrl){
+      String watermark = cloudinaryUrlEffect;
+    List urlList = imageUrl.split('/');
     // print(urlList);
     // urlList.forEach((i) => print(i));
     String finalString = 'https:/';
@@ -29,6 +34,9 @@ class FotoProvider {
       }
     }
     return finalString;
+  }
+  String getUrlConThumbmail(String url) {
+  return procesarEfecto('c_thumb,g_north_west,q_100,w_200', url);
   }
 
   Future<List<dynamic>> getFotosPerfil() async {
