@@ -130,4 +130,7 @@ class FotoProvider {
       print(e);
     }
   }
+  saveImageToGallery(){
+    
+  }
 }
