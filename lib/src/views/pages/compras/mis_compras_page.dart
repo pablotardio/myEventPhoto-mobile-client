@@ -57,7 +57,7 @@ class _MisComprasPageState extends State<MisComprasPage> {
                 height: 250.0,
                 placeholder: AssetImage('assets/loading-bits.gif'),
                 image: NetworkImage(
-                  element['url'],
+                 fotoProvider.getUrlConThumbmail(element['url']) ,
                 ),
                 fit: BoxFit.cover,
               ),
