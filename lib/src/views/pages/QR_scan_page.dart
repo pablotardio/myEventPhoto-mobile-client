@@ -86,6 +86,7 @@ class _QRScanPageState extends State<QRScanPage> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       onPressed: () {
         _eventoProvider.addMeAlEvento(eventoEscaneado.id);
+        
       },
     ));
   }
