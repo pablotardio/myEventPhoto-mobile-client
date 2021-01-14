@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:http/http.dart' as http;
@@ -130,7 +131,6 @@ class FotoProvider {
       print(e);
     }
   }
-  saveImageToGallery(){
-    
-  }
+
+
 }

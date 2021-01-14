@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:myeventphoto_mobile_client/src/providers/foto_provider.dart';
-
+import 'package:permission_handler/permission_handler.dart';
 
 class MisComprasPage extends StatefulWidget {
   MisComprasPage({Key key}) : super(key: key);
@@ -44,28 +45,23 @@ class _MisComprasPageState extends State<MisComprasPage> {
 
     data.forEach((element) {
       myItems.add(Container(
-        
         child: Stack(
-         
           children: [
             SizedBox(
               width: double.infinity,
             ),
-            
-             Center(
-                
-                child: FadeInImage(
-                  height: 250.0,
-                  placeholder: AssetImage('assets/loading-bits.gif'),
-                  image: NetworkImage(
-                   element['url'],
-                  ),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            
             Center(
-              child: _botonVer(),
+              child: FadeInImage(
+                height: 250.0,
+                placeholder: AssetImage('assets/loading-bits.gif'),
+                image: NetworkImage(
+                  element['url'],
+                ),
+                fit: BoxFit.cover,
+              ),
+            ),
+            Center(
+              child: _botonVer(element['url']),
             )
           ],
         ),
@@ -82,7 +78,16 @@ class _MisComprasPageState extends State<MisComprasPage> {
     );
   }
 
-  _botonVer() {
+  void _saveNetworkImage(String path) async {
+    Permission.storage.request();
+    GallerySaver.saveImage(path).then((bool success) {
+     setState(() {
+        print('Image is saved');
+      });
+    });
+  }
+
+  _botonVer(url) {
     return (RaisedButton.icon(
       icon: Icon(Icons.remove_red_eye),
       label: Text('Ver'),
@@ -91,6 +96,7 @@ class _MisComprasPageState extends State<MisComprasPage> {
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       onPressed: () {
+        _saveNetworkImage(url);
         print('ADDED');
       },
     ));
