@@ -5,6 +5,7 @@ import 'package:myeventphoto_mobile_client/src/models/evento_model.dart';
 import 'package:myeventphoto_mobile_client/src/providers/evento_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
+import 'package:myeventphoto_mobile_client/src/providers/alert_provider.dart';
 
 //import 'package:permission_handler/permission_handler.dart';
 class QRScanPage extends StatefulWidget {
@@ -15,6 +16,7 @@ class QRScanPage extends StatefulWidget {
 }
 
 class _QRScanPageState extends State<QRScanPage> {
+  bool _estaGuardando = false;
   String nombre = '';
   String direccion = '';
   final _eventoProvider = new EventoProvider();
@@ -84,17 +86,30 @@ class _QRScanPageState extends State<QRScanPage> {
       color: Colors.orange[900],
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      onPressed: () {
-        _eventoProvider.addMeAlEvento(eventoEscaneado.id);
-        
-      },
+      onPressed: _estaGuardando ? null : addMeAlEventoProcess,
     ));
   }
 
+  void addMeAlEventoProcess()async{
+    _estaGuardando = true;
+    var response= await _eventoProvider.addMeAlEvento(eventoEscaneado.id);
+    if(response['estado']=='bad'){
+    AlertProvider.mostrarAlert(context, 'Error',
+        'Usted ya ha sido añadido al evento anteriormente');
+
+    }else{
+    AlertProvider.mostrarAlert(context, 'Guardado con exito',
+        'Se ha añadido como invitado y se comenzo el Procesamiento Inteligente de Fotos');
+
+    }
+
+    _estaGuardando = false;
+  }
+
   _eventoEscaneado() {
-    final fontStyleTitulo= TextStyle(fontFamily: 'Times', fontSize: 20.0);
-    final fontStyleContenido=TextStyle(fontFamily: 'Courier', fontSize: 20.0);
-    
+    final fontStyleTitulo = TextStyle(fontFamily: 'Times', fontSize: 20.0);
+    final fontStyleContenido = TextStyle(fontFamily: 'Courier', fontSize: 20.0);
+
     return StreamBuilder<Evento>(
         stream: _eventoEscaneadoStreamController.stream,
         builder: (context, AsyncSnapshot<Evento> snapshot) {
@@ -123,11 +138,15 @@ class _QRScanPageState extends State<QRScanPage> {
                 ],
               ),
               padding: EdgeInsets.all(20.0),
-              decoration: BoxDecoration(color: Colors.white,
-            borderRadius: BorderRadius.circular(10.0),
-               boxShadow: [
-                BoxShadow(color: Colors.black38, spreadRadius: 2.0,blurRadius: 10.0)
-              ]),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.0),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black38,
+                        spreadRadius: 2.0,
+                        blurRadius: 10.0)
+                  ]),
             );
           } else {
             widgetEventoEscaneado = Container(

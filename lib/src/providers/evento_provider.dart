@@ -24,10 +24,10 @@ class EventoProvider {
     }
   }
 
-  void addMeAlEvento(int eventoId) async {
+   addMeAlEvento(int eventoId) async {
     Map<String, int> body = {'id': eventoId};
     final apiUrl = '/api/invitado/evento/add';
-    await procesarPeticion(apiUrl, body);
+    return await procesarPeticion(apiUrl, body);
   }
 
   Future<List<Evento>> getMyEventos()async {
