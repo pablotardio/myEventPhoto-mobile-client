@@ -7,7 +7,9 @@ import 'package:myeventphoto_mobile_client/src/shared_prefs/preferencias_usuario
 final prefs = new PreferenciasUsuario();
 
 class EventoProvider {
-  final _host = '192.168.1.4:3002';
+  final _host = '192.168.1.5:3002';
+
+ // final _host = '192.168.1.4:3002';
   final _headers = {
     "Content-Type": "application/json",
     "Authorization": 'bearer ' + prefs.token

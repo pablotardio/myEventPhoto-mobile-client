@@ -11,7 +11,7 @@ class PagoProvider {
     "Content-Type": "application/json",
     "Authorization": 'bearer ' + prefs.token
   };
-  final _host = '192.168.1.4:3002';
+  final _host = '192.168.1.5:3002';
   Future<String> pagar({number, expMonth, expYear, cvc}) async {
     Map<String, int> body = {
       'number': number,

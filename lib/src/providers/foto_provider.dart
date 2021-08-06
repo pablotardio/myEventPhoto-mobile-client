@@ -10,11 +10,12 @@ import 'package:myeventphoto_mobile_client/src/shared_prefs/preferencias_usuario
 class FotoProvider {
   List<dynamic> responseFotos = [];
   final prefs = new PreferenciasUsuario();
-  final _host = '192.168.1.4:3002';
+  final _host = '192.168.1.5:3002';
   /**
    * usa cloudinary para poner marca de agua
    */
   String getUrlConMarcaDeAgua(String url) {
+    
     String watermark =
         'b_rgb:000000,c_limit,e_blur:1,h_200,o_90,w_200/ar_1:1,b_rgb:000000,c_lfill,co_rgb:ffffff,l_text:arial_80:®,o_60,r_max';
   
